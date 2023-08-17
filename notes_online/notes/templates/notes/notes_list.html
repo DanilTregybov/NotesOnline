@@ -1,0 +1,37 @@
+{% extends "notes/base.html" %}
+{% block title %}
+Notes
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="d-flex  justify-content-between">
+        <h2>Notes</h2>
+        <a href="{% url 'create_note' %}"><button type="button" class="btn btn-success me-2">Make new</button></a>
+    </div>
+    {% if notes %}
+        {% for note in notes %}
+            <div class="alert alert-secondary mt2">
+                <h3>{{note.topic}}</h3>
+                <style>
+                    .custom-link {
+                        color: black; /* Початковий колір посилання */
+                        text-decoration: none;
+                    }
+                </style>
+                <div class="d-flex  justify-content-between">
+                    <h3>{{note.name}}</h3>
+                    <a href="{% url 'note_detail' note.id %}" class="btn btn-outline-dark">Edit</a>
+
+                </div>
+                <p>{{note.text|linebreaks|truncatewords:30}}</p>
+                <p>{{note.created_at}}</p>
+            </div>
+        {%endfor%}
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+          <h5>You don't have any notes on this topic</h5>
+        </div>
+    {% endif %}
+{% endblock %}

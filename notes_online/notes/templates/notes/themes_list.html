@@ -1,0 +1,38 @@
+{% extends "notes/base.html" %}
+
+{% block title %}
+
+Themes
+{% endblock %}
+
+
+{% block content %}
+    <div class="d-flex  justify-content-between">
+        <h2>Themes</h2>
+        <a href="{% url 'create_theme' %}"><button type="button" class="btn btn-success me-2">Make new</button></a>
+    </div>
+
+    {% if themes %}
+        {% for theme in themes %}
+            <div class="alert alert-dark mt2">
+                <style>
+                    .custom-link {
+                        color: black; /* Початковий колір посилання */
+                        text-decoration: none;
+                    }
+                </style>
+                <div class="d-flex  justify-content-between">
+                    <h3><a href="{% url 'notes_on_theme' theme.id %}" class="custom-link">{{theme.theme_name}}</a></h3>
+                    <a href="{% url 'theme_detail' theme.id %}" class="btn btn-outline-dark">Edit</a>
+                </div>
+                <p>{{theme.created_at}}</p>
+            </div>
+        {%endfor%}
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+          <h5>Let`s make some themes for your notes</h5>
+        </div>
+
+    {% endif %}
+{% endblock %}
+
