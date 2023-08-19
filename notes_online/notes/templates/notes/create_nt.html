@@ -6,17 +6,24 @@ Create new note
 
 
 {% block content %}
+
     <h2>Create new note</h2>
     <form method="post">
         {% csrf_token %}
-        <h>Topic</h>
-        {{form.topic}}<br>
+        <label for="topic">Topic</label>
+        <select name="topic" id="topic">
+            {% for theme in owner_topic %}
+                <option value="{{ theme.id}}">{{ theme.theme_name }}</option>
+            {% endfor %}
+        </select>
         <br>
         <h>Name</h>
         {{form.name}}<br>
         <h>Text</h>
         {{form.text}}<br>
+        {{form.errors}}
         <button type="submit" class="btn btn-outline-success">Add</button>
         <span>{{error}}</span>
+
     </form>
 {% endblock %}

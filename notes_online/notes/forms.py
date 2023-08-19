@@ -1,6 +1,9 @@
-from .models import Theme, Note
-from django.forms import ModelForm, TextInput, Textarea
+from django.contrib.auth.forms import UserCreationForm
 
+from .models import Theme, Note
+from django.forms import ModelForm, TextInput, Textarea, PasswordInput
+from django.contrib.auth.models import User
+from django import forms
 
 class ThemeForm(ModelForm):
     class Meta:
@@ -27,3 +30,8 @@ class NoteForm(ModelForm):
                 "placeholder": "Enter note text"
             }),
         }
+
+class RegisterForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+

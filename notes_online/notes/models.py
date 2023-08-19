@@ -1,18 +1,20 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Theme(models.Model):
     theme_name = models.CharField(max_length=30) #help_text="Note theme",
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    #owner =
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
     class Meta:
         ordering = ['-id']
 
     def __str__(self):
-        return "{}:{}".format(self.pk,self.theme_name)
+        return "{}".format(self.theme_name)
 
     def get_absolute_url(self):
         return reverse('notes_on_theme', kwargs={"edit_slug": self.slug})
@@ -22,7 +24,9 @@ class Note(models.Model):
     text = models.TextField()#help_text="Note text"
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # owner =
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 
     class Meta:
         ordering = ['-id']
